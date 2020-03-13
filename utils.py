@@ -1,5 +1,8 @@
 import numpy as np
 import cv2
+import base64
+import io
+from PIL import Image
 
 def calculate_bright_intensity_of_environment(image, percentage = 0.1):
     image = np.array(image).reshape(-1)
@@ -74,3 +77,15 @@ def overlay_transparent(background, overlay, x, y):
     background[y:y+h, x:x+w] = (1.0 - mask) * background[y:y+h, x:x+w] + mask * overlay_image
 
     return background
+
+    
+def base64_to_img(base64_string):
+    # print(base64_string)
+    imgdata = base64.b64decode(str(base64_string))
+    image = Image.open(io.BytesIO(imgdata))
+    image = np.array(cv2.cvtColor(np.array(image),cv2.COLOR_BGR2RGB))
+    return image
+
+def img_to_base64(img):
+    base64_string = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
+    return base64_string
