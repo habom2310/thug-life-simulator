@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import request, jsonify
 import os
+from flask_cors import CORS
 from thuglife import Thug
 
 application = Flask(__name__)
+CORS(application)
+
 th = Thug()
 
 @application.route('/', methods=['GET'])
@@ -26,4 +29,4 @@ def thuglife():
 if __name__ == '__main__':
     # port = int(os.environ.get('PORT', 33507))
     # application.run(threaded=False, debug=False, port=port)
-    application.run()
+    application.run(threaded=False)
