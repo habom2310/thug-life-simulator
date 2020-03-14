@@ -1,4 +1,4 @@
-FROM ubuntu:18.04-python3
+FROM ubuntu:18.04
 
 
 RUN apt-get update \
